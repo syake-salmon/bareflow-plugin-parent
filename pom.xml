@@ -6,7 +6,7 @@
     <!-- ===== Project Metadata ===== -->
     <groupId>org.bareflow</groupId>
     <artifactId>bareflow-plugin-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
     <name>BareFlow Plugin Parent</name>
     <description>Parent POM for BareFlow official plugins</description>
