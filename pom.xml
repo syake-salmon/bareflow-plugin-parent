@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- ===== Project Metadata ===== -->
+    <groupId>org.bareflow</groupId>
+    <artifactId>bareflow-plugin-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>BareFlow Plugin Parent</name>
+    <description>Parent POM for BareFlow official plugins</description>
+    <url>https://github.com/syake-salmon/bareflow-plugin-parent</url>
+    <developers>
+        <developer>
+            <name>syake-salmon</name>
+            <email>syakeapps@icloud.com</email>
+            <organization>syakeApps</organization>
+            <organizationUrl>https://syake-salmon.github.io/</organizationUrl>
+        </developer>
+    </developers>
+    <!-- ===== License ===== -->
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+    <!-- ===== SCM (GitHub) ===== -->
+    <scm>
+        <url>https://github.com/syake-salmon/bareflow-plugin-parent</url>
+        <connection>scm:git:https://github.com/syake-salmon/bareflow-plugin-parent.git</connection>
+        <developerConnection>scm:git:https://github.com/syake-salmon/bareflow-plugin-parent.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+    <!-- ===== Properties ===== -->
+    <properties>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
+        <encoding>UTF-8</encoding>
+        <java.version>17</java.version>
+        <bareflow.version>1.1.0</bareflow.version>
+    </properties>
+    <!-- ===== Dependency Management ===== -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- BareFlow Core -->
+            <dependency>
+                <groupId>org.bareflow</groupId>
+                <artifactId>bareflow-core</artifactId>
+                <version>${bareflow.version}</version>
+            </dependency>
+            <!-- BareFlow Runtime -->
+            <dependency>
+                <groupId>org.bareflow</groupId>
+                <artifactId>bareflow-runtime</artifactId>
+                <version>${bareflow.version}</version>
+            </dependency>
+            <!-- SLF4J API -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>2.0.17</version>
+            </dependency>
+            <!-- JUnit -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>5.14.2</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- Mockito-->
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-junit-jupiter</artifactId>
+                <version>5.21.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <!-- ===== Build Plugins ===== -->
+    <build>
+        <plugins>
+            <!-- ===== Clean ===== -->
+            <!-- ===== Validate ===== -->
+            <!-- ===== Compile ===== -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <!-- ===== Test ===== -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.4</version>
+                <configuration>
+                    <useModulePath>false</useModulePath>
+                </configuration>
+            </plugin>
+            <!-- ===== Package ===== -->
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.12.0</version>
+                <configuration>
+                    <additionalOptions>
+                        <additionalOption>-Xdoclint:none</additionalOption>
+                    </additionalOptions>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- ===== Integration-Test ===== -->
+            <!-- ===== Verify ===== -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                            <passphrase>${env.MAVEN_GPG_PASSPHRASE}</passphrase>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- ===== Install ===== -->
+            <!-- ===== Deploy ===== -->
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.10.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                    <centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
+                    <centralSnapshotsUrl>https://central.sonatype.com/api/publish/snapshots</centralSnapshotsUrl>
+                </configuration>
+            </plugin>
+            <!-- ===== Site ===== -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.14</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
