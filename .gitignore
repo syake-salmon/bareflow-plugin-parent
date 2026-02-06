@@ -1,0 +1,8 @@
+# VSCode
+.vscode/
+
+# Maven
+target/
+
+# Copilot integration
+.copilot/
