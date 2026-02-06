@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <!-- ===== Project Metadata ===== -->
-    <groupId>org.bareflow</groupId>
+    <groupId>run.bareflow</groupId>
     <artifactId>bareflow-plugin-parent</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
@@ -48,13 +48,13 @@
         <dependencies>
             <!-- BareFlow Core -->
             <dependency>
-                <groupId>org.bareflow</groupId>
+                <groupId>run.bareflow</groupId>
                 <artifactId>bareflow-core</artifactId>
                 <version>${bareflow.version}</version>
             </dependency>
             <!-- BareFlow Runtime -->
             <dependency>
-                <groupId>org.bareflow</groupId>
+                <groupId>run.bareflow</groupId>
                 <artifactId>bareflow-runtime</artifactId>
                 <version>${bareflow.version}</version>
             </dependency>
